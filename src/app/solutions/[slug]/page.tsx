@@ -76,7 +76,11 @@ export default async function SectorPage({ params }: { params: Promise<Params> }
               <p>{x.body}</p>
             </div>
             <div className="split__art">
-              <Art kind={x.art} />
+              {x.image ? (
+                <img src={x.image} alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              ) : (
+                <Art kind={x.art} />
+              )}
             </div>
           </div>
         ))}

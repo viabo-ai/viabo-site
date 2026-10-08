@@ -263,7 +263,7 @@ export type SectorPage = {
     art: ArtKind;
     image?: string;
   };
-  extra: { title: string; body: string; art: ArtKind }[];
+  extra: { title: string; body: string; art: ArtKind; image?: string }[];
   stages: string[]; // lifecycle stage ids most relevant to this sector
   cta: { title: string; body?: string };
 };
@@ -281,14 +281,14 @@ export const sectors: SectorPage[] = [
         "A consistent, visual asset register across every centre and building — for owners, operators, managing agents and FM providers.",
     },
     hero: {
-      title: "Every centre, every building, on the same basis.",
+      title: "Every site, every building, on the same basis.",
       sub: "Owners, operators and the FM teams working for them need to know what's installed, where it is and what state it's in — across the whole portfolio, not one site and one spreadsheet at a time.",
     },
     main: {
       title: "One record per site. One standard across all of them.",
       body: "viabo captures each property as a measurable site record and registers its assets on the same structure everywhere — so a car park in one centre can be compared with a car park in another.",
       enables: [
-        "CCTV, signage, services, lighting and fit-out registered where they actually are",
+        "CCTV, signage, lighting and fit-out registered where they actually are",
         "Car parks, back-of-house and plant areas documented without repeated site visits",
         "Measurements taken from the record for upgrade scoping and contractor briefs",
         "Tenancy, common-area and activation spaces visible to leasing and operations alike",
@@ -305,6 +305,7 @@ export const sectors: SectorPage[] = [
         title: "Upgrades that pay back — and can prove it",
         body: "Services and lighting upgrades in car parks and common areas are among the fastest returns in a portfolio. Audit from the record, plan the upgrade in context, then capture again to document the result.",
         art: "lifecycle",
+        image: "/sectors/commercial-retail-upgrades.jpg",
       },
     ],
     stages: ["acquisition", "operations", "upgrade", "capital-planning"],
@@ -381,11 +382,6 @@ export const sectors: SectorPage[] = [
       art: "register",
     },
     extra: [
-      {
-        title: "Warehouse, offices and workshop in one record",
-        body: "For a recent distribution facility, viabo captured the warehouse floor, offices and service workshop as one record and registered the site's assets — giving operations, facilities and management a single place to find, measure and plan.",
-        art: "capture",
-      },
     ],
     stages: ["handover", "operations", "expansion"],
     cta: { title: "Relocations, reconfigurations and new sites", body: "A measurable record makes the next layout decision faster and safer." },
