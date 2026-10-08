@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# viabo.ai marketing site
 
-## Getting Started
+Next.js (App Router) marketing site for viabo — AI asset management for built environments.
+Six pages, all copy in one file, contact form creates leads in Odoo CRM.
 
-First, run the development server:
+## Edit copy
+
+Everything public is in `src/content/site.ts`. Components never contain words.
+Vocabulary rule: describe what the customer gets, never how it's produced. No 3DGS/SLAM/LiDAR,
+no vendor names, no robotics/wayfinding, no full-UI screenshots.
+
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Without Odoo env vars the contact form logs enquiries to the server console and still shows success.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy to Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Push this folder to a Git repo and import it in Vercel (framework preset: Next.js, no extra settings).
+2. Project → Settings → Environment Variables: add the four `ODOO_*` values from `.env.example`.
+   Use an Odoo **API key** for a dedicated low-privilege user with CRM "User: Own documents only".
+3. Deploy. Check the preview URL, submit the form once, confirm a lead appears in Odoo CRM.
 
-## Learn More
+## DNS cutover (Cloudflare)
 
-To learn more about Next.js, take a look at the following resources:
+Odoo currently serves `www.viabo.ai`. To move the marketing site to Vercel and keep Odoo for CRM:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Record | Type | Value | Proxy |
+|---|---|---|---|
+| `www` | CNAME | `cname.vercel-dns.com` | DNS only (grey cloud) |
+| `@` (apex) | A | `76.76.21.21` | DNS only |
+| `erp` | CNAME | *(existing Odoo target)* | as it is now |
+| MX records | MX | *(MXroute — unchanged)* | — |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Then in Odoo: Website → Configuration → Settings → Domain = `https://erp.viabo.ai`.
+Namecheap is registrar only (nameservers already at Cloudflare) — nothing to change there.
 
-## Deploy on Vercel
+`vercel.json` already 301s the old `/education` and `/shop` URLs and forwards `/web/*` (Odoo login) to `erp.viabo.ai`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/app/                  routes (/, /how-it-works, /solutions/[slug], /why-viabo, /about, /contactus, /privacy)
+src/app/contactus/        form (client) + server action → src/lib/odoo.ts (JSON-RPC crm.lead create)
+src/components/           Header, Footer, PageHero, CtaBand, Art (abstract SVG illustrations)
+src/content/site.ts       all copy and metadata
+```
