@@ -301,12 +301,6 @@ export const sectors: SectorPage[] = [
       art: "portfolio",
     },
     extra: [
-      {
-        title: "Upgrades that pay back — and can prove it",
-        body: "Services and lighting upgrades in car parks and common areas are among the fastest returns in a portfolio. Audit from the record, plan the upgrade in context, then capture again to document the result.",
-        art: "lifecycle",
-        image: "/sectors/commercial-retail-upgrades.jpg",
-      },
     ],
     stages: ["acquisition", "operations", "upgrade", "capital-planning"],
     cta: { title: "Start with a single centre.", body: "One site is enough to show the value of a consistent, portfolio-wide record." },
