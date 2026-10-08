@@ -8,6 +8,8 @@ export const metadata: Metadata = { title: c.meta.title, description: c.meta.des
 export default function PartnersPage() {
   return (
     <>
+      <link rel="preload" as="image" href="/partners-poster.jpg" fetchPriority="high" />
+      <link rel="preload" as="video" href={c.video.src} fetchPriority="high" />
       <VideoHero src={c.video.src} poster="/partners-poster.jpg" title={c.hero.title} sub={c.hero.sub} cta={c.cta.cta} />
 
       <section className="section">

@@ -71,8 +71,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. Outcomes */}
+      {/* 3. Solutions */}
       <section className="section section--tint">
+        <div className="container stack stack--lg">
+          <div className="stack">
+            <h2>{solutions.title}</h2>
+          </div>
+          <SolutionCards />
+        </div>
+      </section>
+
+      {/* 4. Outcomes */}
+      <section className="section">
         <div className="container stack stack--lg">
           <div className="stack">
             <h2>{outcomes.title}</h2>
@@ -88,16 +98,6 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* 4. Solutions */}
-      <section className="section">
-        <div className="container stack stack--lg">
-          <div className="stack">
-            <h2>{solutions.title}</h2>
-          </div>
-          <SolutionCards />
         </div>
       </section>
 
